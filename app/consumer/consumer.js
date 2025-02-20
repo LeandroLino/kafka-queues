@@ -28,14 +28,14 @@ const run = async () => {
 					Product.create(product).then((data) => {
 						Request.update(
 							{ product_id: data.id, status: 'completed' },
-							{ where: { id: value.requstId } }
+							{ where: { id: value.requestId } }
 						);
 					});
 				} catch (error) {
 					console.log;
 					Request.update(
 						{ status: 'failed' },
-						{ where: { id: value.requstId } }
+						{ where: { id: value.requestId } }
 					);
 				}
 			},
