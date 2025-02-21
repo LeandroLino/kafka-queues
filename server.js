@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 require('./app/producer/producer');
-const { run: runConsumer } = require('./app/consumer/consumer'); // Importe o consumidor
+const { run: runConsumer } = require('./app/consumer/consumer');
 
 const app = express();
 
@@ -16,7 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = require('./app/models');
 
-// Aguarda 10 segundos antes de tentar conectar ao banco de dados
 setTimeout(() => {
 	db.sequelize
 		.sync()
@@ -26,7 +25,7 @@ setTimeout(() => {
 		.catch((err) => {
 			console.log('Failed to sync db: ' + err.message);
 		});
-}, 10000); // 10 segundos
+}, 10000);
 
 app.get('/', (req, res) => {
 	res.json({ message: 'Welcome to bezkoder application.' });
@@ -40,7 +39,6 @@ app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}.`);
 });
 
-// Iniciar o consumidor Kafka
 setTimeout(() => {
 	runConsumer().catch(console.error);
-}, 1); // 10 segundos
+}, 1);

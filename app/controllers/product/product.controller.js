@@ -2,11 +2,10 @@ const db = require('../../models');
 const Product = db.product;
 const Request = db.request;
 const Op = db.Sequelize.Op;
-const { producer, connectProducer } = require('../../producer/producer.js'); // Importe o produtor e a função de conexão
+const { producer, connectProducer } = require('../../producer/producer.js');
 
 connectProducer().catch(console.error);
 
-// Create and Save a new Product
 exports.health = (req, res) => {
 	res.status(200).send({
 		message: 'OK',
@@ -35,6 +34,19 @@ exports.async = async (req, res) => {
 		.catch((err) => {
 			res.status(500).send({
 				message: err.message,
+			});
+		});
+};
+
+exports.findAll = (req, res) => {
+	Product.findAll()
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message:
+					err.message || 'Some error occurred while retrieving Products.',
 			});
 		});
 };

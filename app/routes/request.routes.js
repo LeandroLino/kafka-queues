@@ -12,5 +12,18 @@ module.exports = (app) => {
 		});
 	});
 
+	router.get('/list', (req, res) => {
+		Request.findAll()
+			.then((data) => {
+				res.send(data);
+			})
+			.catch((err) => {
+				res.status(500).send({
+					message:
+						err.message || 'Some error occurred while retrieving Products.',
+				});
+			});
+	});
+
 	app.use('/api/request', router);
 };

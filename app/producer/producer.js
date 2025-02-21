@@ -5,9 +5,8 @@ const kafka = new Kafka({
 	brokers: ['kafka:9092'],
 });
 
-const producer = kafka.producer(); // Cria a instância do produtor
+const producer = kafka.producer();
 
-// Função para conectar o produtor
 const connectProducer = async () => {
 	await producer.connect();
 	console.log('Kafka producer connected successfully.');
